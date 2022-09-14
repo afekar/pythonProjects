@@ -172,3 +172,32 @@ print(*equip.values())
 
 # task 12
 
+import sys
+
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+tp = tuple(tuple(map(lambda x: x.split('='), [x for x in lst_in])))
+tp = {key: value for key, value in (filter(lambda x: x if int(x[1]) >= 500 else None, [x for x in tp]))}
+print(*tp.keys())
+
+#task 13
+
+import sys
+
+
+def sort_army(lst):
+    res = {}
+    lst = {key: value for key, value in [x for x in lst]}
+    tmp = 'рядовой,сержант,старшина,прапорщик,лейтенант,капитан,майор,подполковник,полковник'.split(',')
+    for i in lst.keys():
+        lst[i] = tmp.index(lst[i])
+
+    sorted_keys = sorted(lst, key=lst.get)
+    for k in sorted_keys:
+        res[k] = tmp[lst[k]]
+    res = [list(x) for x in res.items()]
+    return res
+
+
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+temp = [x.split('=') for x in lst_in]
+lst = sort_army(temp)
